@@ -1,0 +1,64 @@
+def print_range(n):
+    alpha = "abcdefghijklmnopqrstuvwxyz"
+    data = [alpha[i] for i in range(n)]
+    items = list(range(n))
+    items = items[:-1]+items[::-1]
+    for i in items:
+        temp = data[-(i+1):]
+        row = temp[::-1]+temp[1:]
+        print("-".join(row).center(n*4-3, "-"))
+        
+n = int(input())
+print_range(n)
+
+
+
+
+def unique_combination(l, sum, k, local, A):
+    
+    
+    if(sum == k):
+        print("{", end="")
+        for i in range(len(local)):
+            if(i !=0):
+                print(" ", end="")
+            print(local[i], end="")
+            if(i != len(local) - 1):
+                print(",", end="")
+        print("}")
+        return
+    
+    for i in range(l, len(A), 1):
+        
+        if(sum + A[i] > k):
+            continue
+            
+        
+        if(i > 1 and
+                A[i] == A[i-1]):
+            continue
+            
+        local.append(A[i])
+        
+        unique_combination(i+1, sum + A[i],
+                           k, local, A)
+        
+        local.remove(local[len(local) - 1])
+        
+        
+def combination(A, k):
+    
+    A.sort(reverse=False)
+    
+    local = []
+    
+    unique_combination(0, 0, k, local, A)
+    
+    
+if __name__ == '__main__':
+    A = [12,1,4,3,6,9,2]
+    
+    k=17
+    
+    combination(A, k)
+            
